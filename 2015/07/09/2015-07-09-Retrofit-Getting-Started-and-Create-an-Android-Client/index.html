@@ -1,0 +1,652 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Retrofit,REST,HTTP请求," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="这是Retrofit系列文章的第一篇。该系列通过通过几个用例来探讨Retrofit的功能和扩展。
+这篇博文中，我们将通过Retrofit的基础知识来创建一个API或者Http请求的Android客户端。
+然而，这篇文章并不包含太多关于Retrofit和如何开始使用她的信息，如果你想了解更多，请访问该项目的主页。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Retrofit系列之一：开始创建Retrofit客户端（译）">
+<meta property="og:url" content="http://www.imzhiqiang.com/2015/07/09/2015-07-09-Retrofit-Getting-Started-and-Create-an-Android-Client/index.html">
+<meta property="og:site_name" content="倾城之泪的个人博客">
+<meta property="og:description" content="这是Retrofit系列文章的第一篇。该系列通过通过几个用例来探讨Retrofit的功能和扩展。
+这篇博文中，我们将通过Retrofit的基础知识来创建一个API或者Http请求的Android客户端。
+然而，这篇文章并不包含太多关于Retrofit和如何开始使用她的信息，如果你想了解更多，请访问该项目的主页。">
+<meta property="og:updated_time" content="2015-10-24T16:00:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Retrofit系列之一：开始创建Retrofit客户端（译）">
+<meta name="twitter:description" content="这是Retrofit系列文章的第一篇。该系列通过通过几个用例来探讨Retrofit的功能和扩展。
+这篇博文中，我们将通过Retrofit的基础知识来创建一个API或者Http请求的Android客户端。
+然而，这篇文章并不包含太多关于Retrofit和如何开始使用她的信息，如果你想了解更多，请访问该项目的主页。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.imzhiqiang.com/2015/07/09/2015-07-09-Retrofit-Getting-Started-and-Create-an-Android-Client/"/>
+
+  <title> Retrofit系列之一：开始创建Retrofit客户端（译） | 倾城之泪的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">倾城之泪的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Retrofit系列之一：开始创建Retrofit客户端（译）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-07-09T23:07:16+08:00" content="2015-07-09">
+              2015-07-09
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/07/09/2015-07-09-Retrofit-Getting-Started-and-Create-an-Android-Client/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/09/2015-07-09-Retrofit-Getting-Started-and-Create-an-Android-Client/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这是Retrofit系列文章的第一篇。该系列通过通过几个用例来探讨Retrofit的功能和扩展。</p>
+<p>这篇博文中，我们将通过Retrofit的基础知识来创建一个API或者Http请求的Android客户端。</p>
+<p><strong>然而，这篇文章并不包含太多关于Retrofit和如何开始使用她的信息，如果你想了解更多，请访问该项目的<a href="http://square.github.io/retrofit/" target="_blank" rel="external">主页</a>。</strong><br><a id="more"></a></p>
+<p>####什么是Retrofit</p>
+<p>据Retrofit的官方页面描述，她是</p>
+<font color="#999999">一个类型安全的Android或Java的REST客户端</font>
+
+
+<p>你可以使用注解来描述Http请求，URL参数替换，查询参数支持。这些都是默认集成的。此外，她还提供了多种多样的请求体和文件上传。</p>
+<p>####如何声明(API)请求</p>
+<p>请访问Retrofit的主页阅读她的API文档说明，了解如何发起请求。通过清晰的代码示例你会获取到所有的重要信息。</p>
+<p>####准备你的Android工程</p>
+<p>现在让我们的手回到键盘开始干活。如果你已经创建好工程，请直接看下一段。不然你就在你喜爱的IDE里面新建一个项目。我们更倾向于Gradle的构建系统，如果你使用Maven也是可以的。</p>
+<p>####声明依赖：Gradle或者Maven</p>
+<p>现在让我们为自己的工程添加Retrofit的依赖。选择你的构建系统在pom.xml或者build.gradle里面声明Retrofit的依赖。当构建系统开始编译你的代码时，他会自动下载并为工程添加依赖库。我们也倾向于把Retrofit和OkHTTP结合使用。</p>
+<p>#####Retrofit 1.9</p>
+<p>pom.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.squareup.retrofit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>retrofit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.9.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.squareup.okhttp<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>okhttp<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.4.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>build.gradle<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">  compile &apos;com.squareup.retrofit:retrofit:1.9.0&apos;</div><div class="line">  compile &apos;com.squareup.okhttp:okhttp:2.4.0&apos;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>#####Retrofit 2<br>如果你正在使用Retrofit 2请使用下面的依赖。</p>
+<p>pom.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.squareup.retrofit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>retrofit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.0-beta2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>build.gradle<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;  </div><div class="line">    // Retrofit &amp; OkHttp</div><div class="line">    compile &apos;com.squareup.retrofit:retrofit:2.0.0-beta2&apos;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Retrofit 2现在已经默认使用OkHttp作为网络层。你不需要为你的工程添加OkHttp的依赖了，除非你需要一个特定的版本。</p>
+<p>现在你的工程已经集成了Retrofit，让我们创造一个持久的Android API/HTTP客户端。</p>
+<p>####可持续的Android客户端</p>
+<p>在研究已存在的Retrofit的客户端时，<a href="https://github.com/bkiers/retrofit-oauth/tree/master/src/main/java/nl/bigo/retrofitoauth" target="_blank" rel="external">Bart Kiers的仓库</a>出现了。事实上，它是一个使用Retrofit的Oauth验证实例。它为一个可持续的Android客户端提供了必要的基本原理。这是我们为什么使用它作为一个稳定的基础。在未来的博文中，我们会进一步扩展验证功能。</p>
+<p>下面的类定义了我们Android客户端的基础：<strong>ServiceGenerator</strong></p>
+<p>####Service Generator<br>ServiceGenerator是我们API/HTTP客户端的核心.现在, 她仅仅定义了一个方法为给定的类或者接口创建一个基本的REST adapter。这里是代码：</p>
+<p>#####Retrofit 1.9</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ServiceGenerator</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String API_BASE_URL = <span class="string">"http://your.api-base.url"</span>;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> RestAdapter.Builder builder = <span class="keyword">new</span> RestAdapter.Builder()</div><div class="line">                .setEndpoint(API_BASE_URL)</div><div class="line">                .setClient(<span class="keyword">new</span> OkClient(<span class="keyword">new</span> OkHttpClient()));</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;S&gt; <span class="function">S <span class="title">createService</span><span class="params">(Class&lt;S&gt; serviceClass)</span> </span>&#123;</div><div class="line">        RestAdapter adapter = builder.build();</div><div class="line">        <span class="keyword">return</span> adapter.create(serviceClass);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>#####Retrofit 2</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ServiceGenerator</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String API_BASE_URL = <span class="string">"http://your.api-base.url"</span>;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> OkHttpClient httpClient = <span class="keyword">new</span> OkHttpClient();</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Retrofit.Builder builder =</div><div class="line">            <span class="keyword">new</span> Retrofit.Builder()</div><div class="line">                    .baseUrl(API_BASE_URL)</div><div class="line">                    .addConverterFactory(GsonConverterFactory.create());</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;S&gt; <span class="function">S <span class="title">createService</span><span class="params">(Class&lt;S&gt; serviceClass)</span> </span>&#123;</div><div class="line">        Retrofit retrofit = builder.client(httpClient).build();</div><div class="line">        <span class="keyword">return</span> retrofit.create(serviceClass);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>ServiceGenerator</strong> 类使用Retrofit的 <strong>RestAdapter-Builder</strong> 来创建一个新的REST客户端通过一个被给定基础url的API。例如,GitHub的API基础url是 <strong><a href="https://developer.github.com/v3/" target="_blank" rel="external">https://developer.github.com/v3/</a></strong> 。<strong>serviceClass</strong> 定义了API请求的类或者接口。下面展示了Retrofit的用法和如何定义一个实例客户端。</p>
+<p>####JSON Mapping</p>
+<p>Retrofit 1.9默认使用Google的Gson。你所要做的就是定义你的响应对象类，响应会自动映射为Java对象。</p>
+<p>当使用Retrofit 2时，你需要为Retrofit对象添加一个converter。这就是我们为什么会集成GSON到在Retrofit构建过程中要调用 <strong>.addConverterFactory(GsonConverterFactory.create())</strong> 的原因了。</p>
+<p>####使用Retrofit</p>
+<p>好, 现在让我们定义一个从github请求数据的客户端实例。首先，我们需要创建一个接口并定义一个所需的方法。</p>
+<p>####GitHub客户端<br>下面的代码定义了 <strong>GitHubClient</strong> 和一个请求某仓库贡献者列表的方法。它说明了Retrofit参数替代功能的用法。（当调用方法时，指定路径中的owner和repo将会被替换为给定的变量）</p>
+<p>#####Retrofit 1.9<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">GitHubClient</span> </span>&#123;</div><div class="line">    <span class="meta">@GET</span>(<span class="string">"/repos/&#123;owner&#125;/&#123;repo&#125;/contributors"</span>)</div><div class="line">    <span class="function">List&lt;Contributor&gt; <span class="title">contributors</span><span class="params">(</span></span></div><div class="line">        @Path(<span class="string">"owner"</span>) String owner,</div><div class="line">        @<span class="title">Path</span><span class="params">(<span class="string">"repo"</span>)</span> String repo</div><div class="line">    );</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>#####Retrofit 2<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">GitHubClient</span> </span>&#123;  </div><div class="line">    <span class="meta">@GET</span>(<span class="string">"/repos/&#123;owner&#125;/&#123;repo&#125;/contributors"</span>)</div><div class="line">    Call&lt;List&lt;Contributor&gt;&gt; contributors(</div><div class="line">        <span class="meta">@Path</span>(<span class="string">"owner"</span>) String owner,</div><div class="line">        <span class="meta">@Path</span>(<span class="string">"repo"</span>) String repo</div><div class="line">    );</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这是Contributor类的定义.该类包含了响应数据映射所需的属性。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Contributor</span> </span>&#123;</div><div class="line">       String login;</div><div class="line">       <span class="keyword">int</span> contributions;</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
+<p>关于前面提到的JSON映射：<strong>GitHubClient</strong> 定义了一个名为 <strong>contributors</strong> 返回类型为 <strong>List<contributor\></contributor\></strong> 的方法。Retrofit确保服务器响应可以正确的得到映射。（在响应与给定的类匹配时）</p>
+<p>####API实例请求<br>下面的代码片段说明了ServiceGenerator实例化你客户端的用法。Github客户端通过调用方法来获取仓库贡献者的列表。这段代码是一个Retrofit <a href="https://github.com/square/retrofit/tree/master/samples" target="_blank" rel="external">GitHub客户端示例</a>的修改版。</p>
+<p>你需要为 <strong>ServiceGenerator</strong> 手动定义一个基本的url <strong><a href="https://developer.github.com/v3/" target="_blank" rel="external">https://developer.github.com/v3/</a></strong> 。</p>
+<p>#####Retrofit 1.9<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String... args)</span> </span>&#123;  </div><div class="line">    <span class="comment">// Create a very simple REST adapter which points the GitHub API endpoint.</span></div><div class="line">    GitHubClient client = ServiceGenerator.createService(GitHubClient.class);</div><div class="line"></div><div class="line">    <span class="comment">// Fetch and print a list of the contributors to this library.</span></div><div class="line">    List&lt;Contributor&gt; contributors =</div><div class="line">        client.contributors(<span class="string">"fs_opensource"</span>, <span class="string">"android-boilerplate"</span>);</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (Contributor contributor : contributors) &#123;</div><div class="line">        System.out.println(</div><div class="line">                contributor.login + <span class="string">" ("</span> + contributor.contributions + <span class="string">")"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>#####Retrofit 2<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String... args)</span> </span>&#123;  </div><div class="line">    <span class="comment">// Create a very simple REST adapter which points the GitHub API endpoint.</span></div><div class="line">    GitHubClient client = ServiceGenerator.createService(GitHubClient.class);</div><div class="line"></div><div class="line">    <span class="comment">// Fetch and print a list of the contributors to this library.</span></div><div class="line">    Call&lt;List&lt;Contributor&gt;&gt; call =</div><div class="line">        client.contributors(<span class="string">"fs_opensource"</span>, <span class="string">"android-boilerplate"</span>);</div><div class="line"></div><div class="line">    List&lt;Contributor&gt; contributors = call.execute().body();</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (Contributor contributor : contributors) &#123;</div><div class="line">        System.out.println(</div><div class="line">                contributor.login + <span class="string">" ("</span> + contributor.contributions + <span class="string">")"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>####接下来是什么<br>下篇文章将阐述如何使用Retrofit实现一个基本验证。</p>
+<p>很高兴您可以阅读Retrofit系列的第一篇文章:)</p>
+<p>原文地址：<a href="https://futurestud.io/blog/retrofit-getting-started-and-android-client/" target="_blank" rel="external">https://futurestud.io/blog/retrofit-getting-started-and-android-client/</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Retrofit/" rel="tag">#Retrofit</a>
+          
+            <a href="/tags/REST/" rel="tag">#REST</a>
+          
+            <a href="/tags/HTTP请求/" rel="tag">#HTTP请求</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/07/16/2015-07-16-Retrofit-Basic-Authentication-on-Android/" rel="prev" title="Retrofit系列之二：Retrofit的基本身份验证（译）">
+                Retrofit系列之二：Retrofit的基本身份验证（译） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/07/09/2015-07-09-Retrofit-Getting-Started-and-Create-an-Android-Client/"
+           data-title="Retrofit系列之一：开始创建Retrofit客户端（译）" data-url="http://www.imzhiqiang.com/2015/07/09/2015-07-09-Retrofit-Getting-Started-and-Create-an-Android-Client/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ocwvxy4ar.bkt.clouddn.com/Zech-Avatar.jpeg"
+               alt="倾城之泪" />
+          <p class="site-author-name" itemprop="name">倾城之泪</p>
+          <p class="site-description motion-element" itemprop="description">既然琴瑟起，何以笙箫默</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">倾城之泪</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"qczhilei"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

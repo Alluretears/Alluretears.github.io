@@ -1,0 +1,643 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="图片加载库,Glide," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="在图片加载库烂大街的今天，选择一个适合自己使用的图片加载库已经成为了每一个Android开发者的必经之路。现在市面上知名的图片加载库有UIL,Picasso,Volley ImageLoader,Fresco以及我们今天的主角Glide。它们各有千秋，不能评定谁一定比谁好，只能说哪一个更适合你。
+我的理解下面我来谈一下个人对这些图片加载库的理解，如有错误，还望指教。
+Universal Image">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Glide ：一个专注于平滑滚动的图片加载和缓存库">
+<meta property="og:url" content="http://www.imzhiqiang.com/2015/08/23/2015-08-23-Some-tips-with-Glide/index.html">
+<meta property="og:site_name" content="倾城之泪的个人博客">
+<meta property="og:description" content="在图片加载库烂大街的今天，选择一个适合自己使用的图片加载库已经成为了每一个Android开发者的必经之路。现在市面上知名的图片加载库有UIL,Picasso,Volley ImageLoader,Fresco以及我们今天的主角Glide。它们各有千秋，不能评定谁一定比谁好，只能说哪一个更适合你。
+我的理解下面我来谈一下个人对这些图片加载库的理解，如有错误，还望指教。
+Universal Image">
+<meta property="og:updated_time" content="2015-08-23T11:16:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Glide ：一个专注于平滑滚动的图片加载和缓存库">
+<meta name="twitter:description" content="在图片加载库烂大街的今天，选择一个适合自己使用的图片加载库已经成为了每一个Android开发者的必经之路。现在市面上知名的图片加载库有UIL,Picasso,Volley ImageLoader,Fresco以及我们今天的主角Glide。它们各有千秋，不能评定谁一定比谁好，只能说哪一个更适合你。
+我的理解下面我来谈一下个人对这些图片加载库的理解，如有错误，还望指教。
+Universal Image">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.imzhiqiang.com/2015/08/23/2015-08-23-Some-tips-with-Glide/"/>
+
+  <title> Glide ：一个专注于平滑滚动的图片加载和缓存库 | 倾城之泪的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">倾城之泪的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Glide ：一个专注于平滑滚动的图片加载和缓存库
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-08-23T16:19:12+08:00" content="2015-08-23">
+              2015-08-23
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/08/23/2015-08-23-Some-tips-with-Glide/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/23/2015-08-23-Some-tips-with-Glide/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在图片加载库烂大街的今天，选择一个适合自己使用的图片加载库已经成为了每一个Android开发者的必经之路。现在市面上知名的图片加载库有<a href="https://github.com/nostra13/Android-Universal-Image-Loader" target="_blank" rel="external">UIL</a>,<a href="https://github.com/square/picasso" target="_blank" rel="external">Picasso</a>,<a href="https://android.googlesource.com/platform/frameworks/volley/" target="_blank" rel="external">Volley ImageLoader</a>,<a href="https://github.com/facebook/fresco" target="_blank" rel="external">Fresco</a>以及我们今天的主角<a href="https://github.com/bumptech/glide" target="_blank" rel="external">Glide</a>。它们各有千秋，不能评定谁一定比谁好，只能说哪一个更适合你。</p>
+<h2 id="我的理解"><a href="#我的理解" class="headerlink" title="我的理解"></a>我的理解</h2><p>下面我来谈一下个人对这些图片加载库的理解，如有错误，还望指教。</p>
+<p><strong>Universal Image Loader</strong>：一个强大的图片加载库，包含各种各样的配置，最老牌，使用也最广泛。</p>
+<p><strong>Picasso</strong>: Square出品，必属精品。和OkHttp搭配起来更配呦！</p>
+<p><strong>Volley ImageLoader</strong>：Google官方出品，可惜不能加载本地图片~</p>
+<p><strong>Fresco</strong>：Facebook出的，天生骄傲！不是一般的强大。</p>
+<p><strong>Glide</strong>：Google推荐的图片加载库，专注于流畅的滚动。</p>
+<p>更多详情请看stackoverflow上<a href="http://stackoverflow.com/questions/29363321/picasso-v-s-imageloader-v-s-fresco-vs-glide" target="_blank" rel="external">这个问题</a>。</p>
+<a id="more"></a>
+<h2 id="初试Glide"><a href="#初试Glide" class="headerlink" title="初试Glide"></a>初试Glide</h2><p>下面进入今天的主题，相信之前很多同学都看到过<a href="http://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en" target="_blank" rel="external">这篇</a>介绍Glide的文章,中文版在<a href="http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0327/2650.html" target="_blank" rel="external">这里</a>。文中从各个方面介绍和比较了Glide与Picasso，总体来说二者极为相似，有着近乎相同的API的使用风格。但Glide在缓存策略和加载GIF方面略胜一筹。最后作者也极力推荐了这个库。</p>
+<p>而且据说在Google新出的Photos应用中，到处可见Glide的踪迹。看到这里，你是不是已经迫不及待的想试一试这个库呢？就在你下定决心尝试一记的时候，你又听说Yelp app(据说是美国的大众点评)也在使用这个吊炸天的库。你的心中激动万分，发四一定要使用这个库。说干就干，打开Android Studio，在builde.gradle里面添加上<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">compile</span> <span class="string">'com.github.bumptech.glide:glide:3.6.1'</span></div></pre></td></tr></table></figure></p>
+<p>然后全局搜索图片加载的地方，全部换成了下面的代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Glide.with(mContext)</div><div class="line">        .load(url)</div><div class="line">        .placeholder(R.drawable.loading_spinner)</div><div class="line">        .crossFade()</div><div class="line">        .into(myImageView);</div></pre></td></tr></table></figure></p>
+<p>在经过漫长的编译过程之后，再次打开APP，看到有着渐现效果的图片呈现在你的面前，你不禁叫道：“wocao,真TM帅！为什么我以前没有发现呢？”。</p>
+<p>不过在你使用了几天之后你会发现一些问题：</p>
+<p><strong>为什么</strong> 有的图片第一次加载的时候只显示占位图，第二次才显示正常的图片呢？</p>
+<p><strong>为什么</strong> 我总会得到类似You cannot start a load for a destroyed activity这样的异常呢？</p>
+<p><strong>为什么</strong> 我不能给加载的图片setTag()呢？</p>
+<p>为什么？为什么？这么NB的库竟然会有这么多的问题。没错，这就是我今天要讲的重点。怎么避免上面的问题发生。</p>
+<h2 id="一些解决方案"><a href="#一些解决方案" class="headerlink" title="一些解决方案"></a>一些解决方案</h2><p>1.如果你刚好使用了这个圆形<a href="https://github.com/hdodenhof/CircleImageView" target="_blank" rel="external">Imageview库</a>或者其他的一些自定义的圆形Imageview，而你又刚好设置了占位的话，那么，你就会遇到第一个问题。如何解决呢？<br>方案一: 不设置占位；<br>方案二：使用Glide的Transformation API自定义圆形Bitmap的转换。这里是一个已有的<a href="http://stackoverflow.com/questions/25278821/how-do-rounded-image-with-glide-library" target="_blank" rel="external">例子</a>；<br>方案三：使用下面的代码加载图片：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Glide.with(mContext)</div><div class="line">    .load(url) </div><div class="line">    .placeholder(R.drawable.loading_spinner)</div><div class="line">    .into(<span class="keyword">new</span> SimpleTarget&lt;Bitmap&gt;(width, height) &#123;</div><div class="line">        <span class="meta">@Override</span> </div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResourceReady</span><span class="params">(Bitmap bitmap, GlideAnimation anim)</span> </span>&#123;</div><div class="line">            <span class="comment">// setImageBitmap(bitmap) on CircleImageView </span></div><div class="line">        &#125; </div><div class="line">    &#125;;</div></pre></td></tr></table></figure></p>
+<p>2.至于第二个问题，请记住一句话：不要再非主线程里面使用Glide加载图片，如果真的使用了，请把context参数换成getApplicationContext。更多的细节请参考<a href="https://github.com/bumptech/glide/issues/138" target="_blank" rel="external">这个issue</a>。</p>
+<p>3.为什么不能设置Tag，是因为你使用的姿势不对哦。如何为ImageView设置Tag呢？且听我细细道来。<br>方案一：使用setTag(int,object)方法设置tag,具体用法如下：<br>Java代码是酱紫的：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Glide.with(context).load(urls.get(i).getUrl()).fitCenter().into(imageViewHolder.image);</div><div class="line">        imageViewHolder.image.setTag(R.id.image_tag, i);</div><div class="line">        imageViewHolder.image.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">                <span class="keyword">int</span> position = (<span class="keyword">int</span>) v.getTag(R.id.image_tag);</div><div class="line">                Toast.makeText(context, urls.get(position).getWho(), Toast.LENGTH_SHORT).show();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div></pre></td></tr></table></figure></p>
+<p>同时在values文件夹下新建ids.xml，添加<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"image_tag"</span> <span class="attr">type</span>=<span class="string">"id"</span>/&gt;</span></div></pre></td></tr></table></figure></p>
+<p>大功告成!</p>
+<p>方案二：从Glide的3.6.0之后，新添加了全局设置的方法。具体方法如下：<br>先实现GlideMoudle接口，全局设置ViewTaget的tagId:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyGlideMoudle</span> <span class="keyword">implements</span> <span class="title">GlideModule</span></span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">applyOptions</span><span class="params">(Context context, GlideBuilder builder)</span> </span>&#123;</div><div class="line">        ViewTarget.setTagId(R.id.glide_tag_id);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerComponents</span><span class="params">(Context context, Glide glide)</span> </span>&#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>同样，也需要在ids.xml下添加id<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"glide_tag_id"</span> <span class="attr">type</span>=<span class="string">"id"</span>/&gt;</span></div></pre></td></tr></table></figure></p>
+<p>最后在AndroidManifest.xml文件里面添加<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta-data</span></span></div><div class="line">    <span class="attr">android:name</span>=<span class="string">"com.yourpackagename.MyGlideMoudle"</span></div><div class="line">    <span class="attr">android:value</span>=<span class="string">"GlideModule"</span> /&gt;</div></pre></td></tr></table></figure></p>
+<p>又可以愉快的玩耍了，嘻嘻`(<em>∩_∩</em>)′。</p>
+<p>方案三：写一个继承自ImageViewTaget的类，复写它的get/setRequest方法。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">Glide.with(context).load(urls.get(i).getUrl()).fitCenter().into(<span class="keyword">new</span> ImageViewTarget&lt;GlideDrawable&gt;(imageViewHolder.image) &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">setResource</span><span class="params">(GlideDrawable resource)</span> </span>&#123;</div><div class="line">                imageViewHolder.image.setImageDrawable(resource);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setRequest</span><span class="params">(Request request)</span> </span>&#123;</div><div class="line">                imageViewHolder.image.setTag(i);</div><div class="line">                imageViewHolder.image.setTag(R.id.glide_tag_id,request);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> Request <span class="title">getRequest</span><span class="params">()</span> </span>&#123;</div><div class="line">                <span class="keyword">return</span> (Request) imageViewHolder.image.getTag(R.id.glide_tag_id);</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">        imageViewHolder.image.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">                <span class="keyword">int</span> position = (<span class="keyword">int</span>) v.getTag();</div><div class="line">                Toast.makeText(context, urls.get(position).getWho(), Toast.LENGTH_SHORT).show();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div></pre></td></tr></table></figure></p>
+<h2 id="一些使用技巧"><a href="#一些使用技巧" class="headerlink" title="一些使用技巧"></a>一些使用技巧</h2><p>1.Glide.with(context).resumeRequests()和 Glide.with(context).pauseRequests()</p>
+<p>当列表在滑动的时候，调用pauseRequests()取消请求，滑动停止时，调用resumeRequests()恢复请求。这样是不是会好些呢？</p>
+<p>2.Glide.clear()</p>
+<p>当你想清除掉所有的图片加载请求时，这个方法可以帮助到你。</p>
+<p>3.ListPreloader</p>
+<p>如果你想让列表预加载的话，不妨试一下ListPreloader这个类。</p>
+<h2 id="一些基于Glide的优秀库"><a href="#一些基于Glide的优秀库" class="headerlink" title="一些基于Glide的优秀库"></a>一些基于Glide的优秀库</h2><p>1.<a href="https://github.com/wasabeef/glide-transformations" target="_blank" rel="external">glide-transformations</a></p>
+<p>一个基于Glide的transformation库，拥有裁剪，着色，模糊，滤镜等多种转换效果，赞的不行不行的~~</p>
+<p>2.<a href="https://github.com/florent37/GlidePalette" target="_blank" rel="external">GlidePalette</a></p>
+<p>一个可以在Glide加载时很方便使用Palette的库。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/图片加载库/" rel="tag">#图片加载库</a>
+          
+            <a href="/tags/Glide/" rel="tag">#Glide</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/26/2015-06-20-HelloWorld/" rel="next" title="HelloWorld">
+                <i class="fa fa-chevron-left"></i> HelloWorld
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/10/27/2015-10-27-Hello-Glide/" rel="prev" title="使用Glide加载图片系列之零初识Glide">
+                使用Glide加载图片系列之零初识Glide <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/08/23/2015-08-23-Some-tips-with-Glide/"
+           data-title="Glide ：一个专注于平滑滚动的图片加载和缓存库" data-url="http://www.imzhiqiang.com/2015/08/23/2015-08-23-Some-tips-with-Glide/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ocwvxy4ar.bkt.clouddn.com/Zech-Avatar.jpeg"
+               alt="倾城之泪" />
+          <p class="site-author-name" itemprop="name">倾城之泪</p>
+          <p class="site-description motion-element" itemprop="description">既然琴瑟起，何以笙箫默</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#我的理解"><span class="nav-number">1.</span> <span class="nav-text">我的理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初试Glide"><span class="nav-number">2.</span> <span class="nav-text">初试Glide</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些解决方案"><span class="nav-number">3.</span> <span class="nav-text">一些解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些使用技巧"><span class="nav-number">4.</span> <span class="nav-text">一些使用技巧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些基于Glide的优秀库"><span class="nav-number">5.</span> <span class="nav-text">一些基于Glide的优秀库</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">倾城之泪</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"qczhilei"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
