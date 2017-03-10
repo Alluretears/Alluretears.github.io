@@ -170,7 +170,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Glide支持图片的二级缓存，即内存缓存和磁盘缓存。</p>
+        <p>Glide支持图片的二级缓存，即内存缓存和磁盘缓存(Test标识)。</p>
 <h4 id="磁盘缓存"><a href="#磁盘缓存" class="headerlink" title="磁盘缓存"></a>磁盘缓存</h4><p><strong>缓存位置和大小</strong><br>与其他配置Glide的方法相同，你可以通过构建一个自定义的<a href="https://github.com/bumptech/glide/blob/master/library/src/main/java/com/bumptech/glide/module/GlideModule.java" target="_blank" rel="external">GlideModule</a>来配置Glide的磁盘缓存。目前支持的配置有缓存的位置和大小。具体实现方式如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DiskCacheMoudle</span> <span class="keyword">implements</span> <span class="title">GlideModule</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">applyOptions</span><span class="params">(Context context, GlideBuilder builder)</span> </span>&#123;</div><div class="line">        builder.setDiskCache(</div><div class="line">                <span class="keyword">new</span> InternalCacheDiskCacheFactory(context, <span class="string">"glide_cache"</span>, <span class="number">100</span> * <span class="number">1024</span> * <span class="number">1024</span>));</div><div class="line">        <span class="comment">//builder.setDiskCache(</span></div><div class="line">        <span class="comment">//        new ExternalCacheDiskCacheFactory(context, "glide_cache", 100 * 1024 * 1024));</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerComponents</span><span class="params">(Context context, Glide glide)</span> </span>&#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>InternalCacheDiskCacheFactory和ExternalCacheDiskCacheFactory都最多接收3个参数，第一个为Context,第二个为缓存目录名称,第三个为缓存大小。它们之间唯一的不同就在于InternalCacheDiskCacheFactory构建的缓存是在应用的内部储存，而ExternalCacheDiskCacheFactory则是在外部储存。内部储存中的缓存文件是其他应用程序是无法获取到的，更加安全。</p>
 <p>你可能会问如果我不想把缓存放在这上面的两个位置怎么办？Glide当然也是支持的，通过DiskLruCacheFactory来实现。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">builder.setDiskCache(</div><div class="line">                <span class="keyword">new</span> DiskLruCacheFactory(<span class="keyword">new</span> DiskLruCacheFactory.CacheDirectoryGetter() &#123;</div><div class="line">                    <span class="meta">@Override</span></div><div class="line">                    <span class="function"><span class="keyword">public</span> File <span class="title">getCacheDirectory</span><span class="params">()</span> </span>&#123;</div><div class="line">                        <span class="keyword">return</span> getMyCacheLocationBlockingIO();</div><div class="line">                    &#125;</div><div class="line">                &#125;), <span class="number">100</span> * <span class="number">1024</span> * <span class="number">1024</span>);</div></pre></td></tr></table></figure></p>
@@ -1032,19 +1032,19 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">REST</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">HTTP请求</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">身份验证</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Authentication</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">REST</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">HTTP请求</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1056,7 +1056,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据源</a>
+                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1068,11 +1068,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">调试</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据源</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
+                <a href="javascript:void(0)" class="js-tag color3">调试</a>
               </li>
              
               <li class="article-tag-list-item">
