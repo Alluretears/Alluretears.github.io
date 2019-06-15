@@ -15,13 +15,13 @@
 <meta property="og:site_name" content="倾城之泪的个人博客">
 <meta property="og:description" content="很多的 Android App 中都有使用相机拍摄用户头像的功能。大部分开发者都会使用MediaStore.ACTION_IMAGE_CAPTURE来满足这一需求。这可以节省很多时间，不需要单独开发相机UI，直接调用系统相机；不需要向系统请求 Camera 权限。正如官方文档里面说的那样，Taking Photos Simply。然而在最近的一次的测试中，我发现并没有那么简单。因为运行了几年的代码">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ocwvxy4ar.bkt.clouddn.com/camera_permission.png">
-<meta property="og:image" content="http://ocwvxy4ar.bkt.clouddn.com/action_image_capture.png">
-<meta property="og:updated_time" content="2017-09-04T07:00:33.000Z">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g425ora0u0j30g309egmv.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g425pm6qncj30yg0faq63.jpg">
+<meta property="og:updated_time" content="2019-06-15T13:23:30.780Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用ACTION_IMAGE_CAPTURE可能存在的风险">
 <meta name="twitter:description" content="很多的 Android App 中都有使用相机拍摄用户头像的功能。大部分开发者都会使用MediaStore.ACTION_IMAGE_CAPTURE来满足这一需求。这可以节省很多时间，不需要单独开发相机UI，直接调用系统相机；不需要向系统请求 Camera 权限。正如官方文档里面说的那样，Taking Photos Simply。然而在最近的一次的测试中，我发现并没有那么简单。因为运行了几年的代码">
-<meta name="twitter:image" content="http://ocwvxy4ar.bkt.clouddn.com/camera_permission.png">
+<meta name="twitter:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g425ora0u0j30g309egmv.jpg">
   
     <link rel="alternative" href="/atom.xml" title="倾城之泪的个人博客" type="application/atom+xml">
   
@@ -49,11 +49,11 @@
 <div class="overlay" style="background: #4d4d4d"></div>
 <div class="intrude-less">
 	<header id="header" class="inner">
-		<a href="/blog/" class="profilepic">
-			<img src="http://ocwvxy4ar.bkt.clouddn.com/Zech-Avatar.jpeg" class="js-avatar">
+		<a href="/" class="profilepic">
+			<img src="http://ww4.sinaimg.cn/large/006tNc79ly1g425fzzibjj30cs0cswf3.jpg" class="js-avatar">
 		</a>
 		<hgroup>
-		  <h1 class="header-author"><a href="/blog/">倾城之泪</a></h1>
+		  <h1 class="header-author"><a href="/">倾城之泪</a></h1>
 		</hgroup>
 		
 
@@ -104,7 +104,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="http://ocwvxy4ar.bkt.clouddn.com/Zech-Avatar.jpeg" class="js-avatar">
+				<img src="http://ww4.sinaimg.cn/large/006tNc79ly1g425fzzibjj30cs0cswf3.jpg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">倾城之泪</h1>
@@ -174,9 +174,9 @@
 <p>java.lang.SecurityException: Permission Denial: starting Intent { act=android.media.action.IMAGE_CAPTURE cat=[android.intent.category.DEFAULT] flg=0x3 cmp=com.google.android.GoogleCamera/com.android.camera.activity.CaptureActivity clip={text/uri-list U:content://com.imzhiqiang.example.fileprovider/imageCache/tmp_avatar.jpg} (has extras) } from ProcessRecord{bf70afd 18107:com.imzhiqiang.example/u0a108} (pid=18107, uid=10108) with revoked permission android.permission.CAMERA</p>
 </blockquote>
 <p>看上去是因为没有处理运行时权限导致的 Crash。<strong>Interesting!</strong> 我并没有在 manifest 文件中声明 Camera 的权限，为什么会出现没有处理 Camera 运行时权限的问题呢？随后我想到了可能是引用的 library 中声明了该权限。在 Android Studio 中查看了 Merged Manifest，果然是这样。图中深色背景的权限是我自己声明的，下面的权限是第三方的 library 声明的。</p>
-<p><img src="http://ocwvxy4ar.bkt.clouddn.com/camera_permission.png" alt="permission"></p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g425ora0u0j30g309egmv.jpg" alt="permission"></p>
 <p>然而这和 Intent 又有什么关系？使用 ACTION_IMAGE_CAPTURE 不是可以避免请求 Camera 权限吗？经过几番周折过后，最后终于在官方文档中找到了答案。</p>
-<p><img src="http://ocwvxy4ar.bkt.clouddn.com/action_image_capture.png" alt="action_image_capture"></p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g425pm6qncj30yg0faq63.jpg" alt="action_image_capture"></p>
 <p>虽然很难理解 Google 这样的做法，不过总算找到了问题的根本所在。在对 Camera 权限进行正确的处理后，终于正常运行了。</p>
 <p><strong>结论</strong></p>
 <ol>
@@ -471,7 +471,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据源</a>
+                <a href="javascript:void(0)" class="js-tag color3">调试</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -483,6 +483,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多媒体</a>
               </li>
              
@@ -491,11 +495,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">调试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据源</a>
               </li>
             
             <div class="clearfix"></div>

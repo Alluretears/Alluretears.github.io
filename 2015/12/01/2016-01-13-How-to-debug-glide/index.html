@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="倾城之泪的个人博客">
 <meta property="og:description" content="前言与其他图片加载库不同，在Glide加载图片的过程中默认是没有任何log输出的。这样使得加载失败的原因难以调试。到底是网络错误还是图片根本就不存在亦或者解码出错，我们不得而知。当然官方也给出了调试的方法，这篇文章就来介绍下如何调试Glide加载图片，内容主要是对官方wiki的翻译。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ocwvxy4ar.bkt.clouddn.com/Glide-Workflow.jpeg">
-<meta property="og:updated_time" content="2017-03-05T05:32:16.000Z">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g425no4x5lj30yg0bcq6d.jpg">
+<meta property="og:updated_time" content="2019-06-15T13:21:18.022Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何调试Glide加载图片">
 <meta name="twitter:description" content="前言与其他图片加载库不同，在Glide加载图片的过程中默认是没有任何log输出的。这样使得加载失败的原因难以调试。到底是网络错误还是图片根本就不存在亦或者解码出错，我们不得而知。当然官方也给出了调试的方法，这篇文章就来介绍下如何调试Glide加载图片，内容主要是对官方wiki的翻译。">
-<meta name="twitter:image" content="http://ocwvxy4ar.bkt.clouddn.com/Glide-Workflow.jpeg">
+<meta name="twitter:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g425no4x5lj30yg0bcq6d.jpg">
   
     <link rel="alternative" href="/atom.xml" title="倾城之泪的个人博客" type="application/atom+xml">
   
@@ -49,11 +49,11 @@
 <div class="overlay" style="background: #4d4d4d"></div>
 <div class="intrude-less">
 	<header id="header" class="inner">
-		<a href="/blog/" class="profilepic">
-			<img src="http://ocwvxy4ar.bkt.clouddn.com/Zech-Avatar.jpeg" class="js-avatar">
+		<a href="/" class="profilepic">
+			<img src="http://ww4.sinaimg.cn/large/006tNc79ly1g425fzzibjj30cs0cswf3.jpg" class="js-avatar">
 		</a>
 		<hgroup>
-		  <h1 class="header-author"><a href="/blog/">倾城之泪</a></h1>
+		  <h1 class="header-author"><a href="/">倾城之泪</a></h1>
 		</hgroup>
 		
 
@@ -104,7 +104,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="http://ocwvxy4ar.bkt.clouddn.com/Zech-Avatar.jpeg" class="js-avatar">
+				<img src="http://ww4.sinaimg.cn/large/006tNc79ly1g425fzzibjj30cs0cswf3.jpg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">倾城之泪</h1>
@@ -175,7 +175,7 @@
 <h5 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h5><p>为了在异常发生时可以看到它们，你可以打开Glide中处理所有媒体加载响应的类GenericRequest的log开关。很简单，在命令行运行下面的指令即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell setprop log.tag.GenericRequest DEBUG</span><br></pre></td></tr></table></figure></p>
 <p>如果你将DEBUG替换为VERBOSE，还可以看到详细的请求时间日志。</p>
 <p>如果你想禁用log输出，执行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell setprop log.tag.GenericRequest ERROR</span><br></pre></td></tr></table></figure></p>
-<h5 id="调试工作流"><a href="#调试工作流" class="headerlink" title="调试工作流"></a>调试工作流</h5><p><img src="http://ocwvxy4ar.bkt.clouddn.com/Glide-Workflow.jpeg" alt="Glide workflow.png"></p>
+<h5 id="调试工作流"><a href="#调试工作流" class="headerlink" title="调试工作流"></a>调试工作流</h5><p><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g425no4x5lj30yg0bcq6d.jpg" alt="Glide workflow.png"></p>
 <p>为了查看Glide内部引擎是何时、如何加载图片的，你可以启用这些log:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">adb shell setprop log.tag.Engine VERBOSE</span><br><span class="line">adb shell setprop log.tag.EngineJob VERBOSE</span><br><span class="line">adb shell setprop log.tag.DecodeJob VERBOSE</span><br></pre></td></tr></table></figure></p>
 <p>启用这些log可以帮助你了解到为什么某些资源没有从内存中加载？为什么从外部url加载要重新下载数据？同时这也有助于了解在磁盘缓存时哪些参数需要配置。启用DecodeJob log还可以帮助你了解自定义变换/解码器/编码器等相关问题。</p>
 <h5 id="请求监听器"><a href="#请求监听器" class="headerlink" title="请求监听器"></a>请求监听器</h5><p>虽然启动调试日志很简单，但前提是你可以访问到设备。为了完善Glide已存在或更复杂的错误日志系统，你可以使用RequestListener类。当加载请求失败时onException()方法就会被调用，并给出造成失败的异常或者null(在解码器无法从它获取到的数据中解码出任何有用的东西时)。你可以通过listener() API为每一个请求添加一个监听器。</p>
@@ -489,7 +489,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据源</a>
+                <a href="javascript:void(0)" class="js-tag color3">调试</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -501,6 +501,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多媒体</a>
               </li>
              
@@ -509,11 +513,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">调试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据源</a>
               </li>
             
             <div class="clearfix"></div>
