@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://www.imzhiqiang.com">
   <title>Glide中的缓存 | 倾城之泪的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本文主要介绍了如何配置和管理Glide中的缓存，其中大部分内容都可以直接在官方Wiki中找到，这里只是进行了整理和汇总。言归正传，Glide支持图片的二级缓存(并不是三级缓存，因为从网络加载并不属于缓存)，即内存缓存和磁盘缓存。 磁盘缓存一般的图片缓存指的就是磁盘缓存，把网络上的图片缓存到本地，这样就不需要每次都从网络加载，既提高了加载速度，又为用户节省了流量。Glide在默认情况下是开启磁盘缓存">
-<meta name="keywords" content="Glide,Cache">
+  <meta name="description" content="本文主要介绍了如何配置和管理 Glide 中的缓存，其中大部分内容都可以直接在官方 Wiki 中找到，这里只是进行了整理和汇总。言归正传，Glide 支持图片的二级缓存(并不是三级缓存，因为从网络加载并不属于缓存)，即内存缓存和磁盘缓存。 磁盘缓存一般的图片缓存指的就是磁盘缓存，把网络上的图片缓存到本地，这样就不需要每次都从网络加载，既提高了加载速度，又为用户节省了流量。Glide 在默认情况下是">
+<meta name="keywords" content="Cache,Glide">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Glide中的缓存">
 <meta property="og:url" content="http://www.imzhiqiang.com/2017/03/05/Cache-in-Glide/index.html">
 <meta property="og:site_name" content="倾城之泪的个人博客">
-<meta property="og:description" content="本文主要介绍了如何配置和管理Glide中的缓存，其中大部分内容都可以直接在官方Wiki中找到，这里只是进行了整理和汇总。言归正传，Glide支持图片的二级缓存(并不是三级缓存，因为从网络加载并不属于缓存)，即内存缓存和磁盘缓存。 磁盘缓存一般的图片缓存指的就是磁盘缓存，把网络上的图片缓存到本地，这样就不需要每次都从网络加载，既提高了加载速度，又为用户节省了流量。Glide在默认情况下是开启磁盘缓存">
+<meta property="og:description" content="本文主要介绍了如何配置和管理 Glide 中的缓存，其中大部分内容都可以直接在官方 Wiki 中找到，这里只是进行了整理和汇总。言归正传，Glide 支持图片的二级缓存(并不是三级缓存，因为从网络加载并不属于缓存)，即内存缓存和磁盘缓存。 磁盘缓存一般的图片缓存指的就是磁盘缓存，把网络上的图片缓存到本地，这样就不需要每次都从网络加载，既提高了加载速度，又为用户节省了流量。Glide 在默认情况下是">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-03-13T14:55:22.000Z">
+<meta property="og:updated_time" content="2019-06-23T09:48:48.532Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Glide中的缓存">
-<meta name="twitter:description" content="本文主要介绍了如何配置和管理Glide中的缓存，其中大部分内容都可以直接在官方Wiki中找到，这里只是进行了整理和汇总。言归正传，Glide支持图片的二级缓存(并不是三级缓存，因为从网络加载并不属于缓存)，即内存缓存和磁盘缓存。 磁盘缓存一般的图片缓存指的就是磁盘缓存，把网络上的图片缓存到本地，这样就不需要每次都从网络加载，既提高了加载速度，又为用户节省了流量。Glide在默认情况下是开启磁盘缓存">
+<meta name="twitter:description" content="本文主要介绍了如何配置和管理 Glide 中的缓存，其中大部分内容都可以直接在官方 Wiki 中找到，这里只是进行了整理和汇总。言归正传，Glide 支持图片的二级缓存(并不是三级缓存，因为从网络加载并不属于缓存)，即内存缓存和磁盘缓存。 磁盘缓存一般的图片缓存指的就是磁盘缓存，把网络上的图片缓存到本地，这样就不需要每次都从网络加载，既提高了加载速度，又为用户节省了流量。Glide 在默认情况下是">
   
     <link rel="alternative" href="/atom.xml" title="倾城之泪的个人博客" type="application/atom+xml">
   
@@ -167,38 +167,46 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>本文主要介绍了如何配置和管理Glide中的缓存，其中大部分内容都可以直接在官方Wiki中找到，这里只是进行了整理和汇总。言归正传，Glide支持图片的二级缓存(并不是三级缓存，因为从网络加载并不属于缓存)，即内存缓存和磁盘缓存。</p>
-<h4 id="磁盘缓存"><a href="#磁盘缓存" class="headerlink" title="磁盘缓存"></a>磁盘缓存</h4><p>一般的图片缓存指的就是磁盘缓存，把网络上的图片缓存到本地，这样就不需要每次都从网络加载，既提高了加载速度，又为用户节省了流量。Glide在默认情况下是开启磁盘缓存的，而且提供了丰富的API来让开发者自己配置和管理磁盘缓存。</p>
-<p><strong>缓存位置和大小</strong><br>开发者可以通过构建一个自定义的<a href="https://github.com/bumptech/glide/blob/master/library/src/main/java/com/bumptech/glide/module/GlideModule.java" target="_blank" rel="noopener">GlideModule</a>来配置Glide磁盘缓存的位置和大小。最简单的方法如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DiskCacheMoudle</span> <span class="keyword">implements</span> <span class="title">GlideModule</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">applyOptions</span><span class="params">(Context context, GlideBuilder builder)</span> </span>&#123;</span><br><span class="line">        builder.setDiskCache(</span><br><span class="line">                <span class="keyword">new</span> InternalCacheDiskCacheFactory(context, <span class="string">"glide_cache"</span>, <span class="number">100</span> * <span class="number">1024</span> * <span class="number">1024</span>));</span><br><span class="line">        <span class="comment">//builder.setDiskCache(</span></span><br><span class="line">        <span class="comment">//        new ExternalCacheDiskCacheFactory(context, "glide_cache", 100 * 1024 * 1024));</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerComponents</span><span class="params">(Context context, Glide glide)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>其中InternalCache和ExternalCache都最多接收3个参数：第一个参数为Context,没啥好说的；第二个为缓存的目录名称；第三个为缓存大小，单位是Byte。它们之间唯一的不同就在于InternalCache构建的缓存是在应用的内部储存，而ExternalCache则是在外部储存。内部储存中的缓存文件是其他应用程序是无法获取到的，更加安全。关于内部储存和外部储存的更多内容，请<a href="https://developer.android.google.cn/guide/topics/data/data-storage.html" target="_blank" rel="noopener">点击这里</a>查看官方文档。</p>
-<p>如果不想把缓存放在上面的两个位置怎么办？Glide当然也支持，具体通过DiskLruCacheFactory来实现：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">builder.setDiskCache(</span><br><span class="line">                <span class="keyword">new</span> DiskLruCacheFactory(<span class="keyword">new</span> DiskLruCacheFactory.CacheDirectoryGetter() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> File <span class="title">getCacheDirectory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                        <span class="keyword">return</span> getMyCacheLocationBlockingIO();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;), <span class="number">100</span> * <span class="number">1024</span> * <span class="number">1024</span>);</span><br></pre></td></tr></table></figure></p>
+        <p>本文主要介绍了如何配置和管理 Glide 中的缓存，其中大部分内容都可以直接在官方 Wiki 中找到，这里只是进行了整理和汇总。言归正传，Glide 支持图片的二级缓存(并不是三级缓存，因为从网络加载并不属于缓存)，即内存缓存和磁盘缓存。</p>
+<h4 id="磁盘缓存"><a href="#磁盘缓存" class="headerlink" title="磁盘缓存"></a>磁盘缓存</h4><p>一般的图片缓存指的就是磁盘缓存，把网络上的图片缓存到本地，这样就不需要每次都从网络加载，既提高了加载速度，又为用户节省了流量。Glide 在默认情况下是开启磁盘缓存的，而且提供了丰富的 API 来让开发者自己配置和管理磁盘缓存。</p>
+<p><strong>缓存位置和大小</strong><br>开发者可以通过构建一个自定义的<a href="https://github.com/bumptech/glide/blob/master/library/src/main/java/com/bumptech/glide/module/GlideModule.java" target="_blank" rel="noopener">GlideModule</a>来配置 Glide 磁盘缓存的位置和大小。最简单的方法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DiskCacheMoudle</span> <span class="keyword">implements</span> <span class="title">GlideModule</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">applyOptions</span><span class="params">(Context context, GlideBuilder builder)</span> </span>&#123;</span><br><span class="line">        builder.setDiskCache(</span><br><span class="line">                <span class="keyword">new</span> InternalCacheDiskCacheFactory(context, <span class="string">"glide_cache"</span>, <span class="number">100</span> * <span class="number">1024</span> * <span class="number">1024</span>));</span><br><span class="line">        <span class="comment">//builder.setDiskCache(</span></span><br><span class="line">        <span class="comment">//        new ExternalCacheDiskCacheFactory(context, "glide_cache", 100 * 1024 * 1024));</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerComponents</span><span class="params">(Context context, Glide glide)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中 InternalCache 和 ExternalCache 都最多接收 3 个参数：第一个参数为 Context,没啥好说的；第二个为缓存的目录名称；第三个为缓存大小，单位是 Byte。它们之间唯一的不同就在于 InternalCache 构建的缓存是在应用的内部储存，而 ExternalCache 则是在外部储存。内部储存中的缓存文件是其他应用程序是无法获取到的，更加安全。关于内部储存和外部储存的更多内容，请<a href="https://developer.android.google.cn/guide/topics/data/data-storage.html" target="_blank" rel="noopener">点击这里</a>查看官方文档。</p>
+<p>如果不想把缓存放在上面的两个位置怎么办？Glide 当然也支持，具体通过 DiskLruCacheFactory 来实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">builder.setDiskCache(</span><br><span class="line">                <span class="keyword">new</span> DiskLruCacheFactory(<span class="keyword">new</span> DiskLruCacheFactory.CacheDirectoryGetter() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> File <span class="title">getCacheDirectory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                        <span class="keyword">return</span> getMyCacheLocationBlockingIO();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;), <span class="number">100</span> * <span class="number">1024</span> * <span class="number">1024</span>);</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>Note: getMyCacheLocationBlockingIO方法返回的文件不能为空，而且必须是一个已经创建好的文件目录，不可以是文件。</p>
+<p>Note: getMyCacheLocationBlockingIO 方法返回的文件不能为空，而且必须是一个已经创建好的文件目录，不可以是文件。</p>
 </blockquote>
-<p><strong>缓存策略</strong><br>与其他图片加载库的缓存机制不同，Glide缓存图片时默认只缓存最终加载的那张图片。举个栗子，你要加载的图片分辨率为1000x1000，但是最终显示该图片的ImageView大小只有500x500，那么Glide就会只缓存500x500的小图。这也是在从磁盘缓存中加载图片时Glide比Picasso快的原因。Glide目前提供了四种缓存策略：</p>
+<p><strong>缓存策略</strong><br>与其他图片加载库的缓存机制不同，Glide 缓存图片时默认只缓存最终加载的那张图片。举个栗子，你要加载的图片分辨率为 1000x1000，但是最终显示该图片的 ImageView 大小只有 500x500，那么 Glide 就会只缓存 500x500 的小图。这也是在从磁盘缓存中加载图片时 Glide 比 Picasso 快的原因。Glide 目前提供了四种缓存策略：</p>
 <ol>
 <li>DiskCacheStrategy.NONE 不缓存文件</li>
 <li>DiskCacheStrategy.SOURCE 只缓存原图</li>
 <li>DiskCacheStrategy.RESULT 只缓存最终加载的图（默认的缓存策略）</li>
 <li>DiskCacheStrategy.ALL 同时缓存原图和结果图</li>
 </ol>
-<p><strong>缓存算法</strong><br>在Glide中磁盘缓存默认使用的是LRU（Least Recently Used）算法。如果你想使用其他的缓存算法，就只能通过实现DiskCache接口来完成了。</p>
-<h4 id="内存缓存"><a href="#内存缓存" class="headerlink" title="内存缓存"></a>内存缓存</h4><p>使用内存缓存可以获得更快的图片加载速度，因为减少了耗时的IO操作。众所周知，Bitmap是Android中的内存大户，频繁的创建和回收Bitmap必然会引起内存抖动。Glide中有一个叫做BitmapPool的类，可以复用其中的Bitmap对象，从而避免Bitmap对象的创建，减小内存开销。当配置内存缓存时，我们也应该同时配置BitmapPool的大小。具体方法也是通过自定义的GlideModule来实现的：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">builder.setMemoryCache(<span class="keyword">new</span> LruResourceCache(yourSizeInBytes));</span><br><span class="line">builder.setBitmapPool(<span class="keyword">new</span> LruBitmapPool(sizeInBytes));</span><br></pre></td></tr></table></figure></p>
-<p>一般情况下，开发者是不需要自己去指定它们的大小的，因为Glide已经帮我们做好了。默认的内存缓存和bitmapPool的大小由<a href="https://github.com/bumptech/glide/blob/master/library/src/main/java/com/bumptech/glide/load/engine/cache/MemorySizeCalculator.java" target="_blank" rel="noopener">MemorySizeCalculator</a>根据当前设备的屏幕大小和可用内存计算得到。同时Glide还支持动态的缓存大小调整，在存在大量图片的Activity/Fragment中，开发者可以通过setMemoryCategory方法来提高Glide的内存缓存大小，从而加快图片的加载速度。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Glide.get(context).setMemoryCategory(MemoryCategory.HIGH);</span><br></pre></td></tr></table></figure></p>
-<p>MemoryCategory有3个值可供选择：</p>
+<p><strong>缓存算法</strong><br>在 Glide 中磁盘缓存默认使用的是 LRU（Least Recently Used）算法。如果你想使用其他的缓存算法，就只能通过实现 DiskCache 接口来完成了。</p>
+<h4 id="内存缓存"><a href="#内存缓存" class="headerlink" title="内存缓存"></a>内存缓存</h4><p>使用内存缓存可以获得更快的图片加载速度，因为减少了耗时的 IO 操作。众所周知，Bitmap 是 Android 中的内存大户，频繁的创建和回收 Bitmap 必然会引起内存抖动。Glide 中有一个叫做 BitmapPool 的类，可以复用其中的 Bitmap 对象，从而避免 Bitmap 对象的创建，减小内存开销。当配置内存缓存时，我们也应该同时配置 BitmapPool 的大小。具体方法也是通过自定义的 GlideModule 来实现的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">builder.setMemoryCache(<span class="keyword">new</span> LruResourceCache(yourSizeInBytes));</span><br><span class="line">builder.setBitmapPool(<span class="keyword">new</span> LruBitmapPool(sizeInBytes));</span><br></pre></td></tr></table></figure>
+<p>一般情况下，开发者是不需要自己去指定它们的大小的，因为 Glide 已经帮我们做好了。默认的内存缓存和 bitmapPool 的大小由<a href="https://github.com/bumptech/glide/blob/master/library/src/main/java/com/bumptech/glide/load/engine/cache/MemorySizeCalculator.java" target="_blank" rel="noopener">MemorySizeCalculator</a>根据当前设备的屏幕大小和可用内存计算得到。同时 Glide 还支持动态的缓存大小调整，在存在大量图片的 Activity/Fragment 中，开发者可以通过 setMemoryCategory 方法来提高 Glide 的内存缓存大小，从而加快图片的加载速度。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Glide.get(context).setMemoryCategory(MemoryCategory.HIGH);</span><br></pre></td></tr></table></figure>
+<p>MemoryCategory 有 3 个值可供选择：</p>
 <ol>
-<li>MemoryCategory.HIGH（初始缓存大小的1.5倍）</li>
-<li>MemoryCategory.NORMAL（初始缓存大小的1倍）</li>
-<li>MemoryCategory.LOW（初始缓存大小的0.5倍）</li>
+<li>MemoryCategory.HIGH（初始缓存大小的 1.5 倍）</li>
+<li>MemoryCategory.NORMAL（初始缓存大小的 1 倍）</li>
+<li>MemoryCategory.LOW（初始缓存大小的 0.5 倍）</li>
 </ol>
-<p>在有些情况下我们不希望做内存缓存（比如加载GIF图片），这个时候可以调用skipMemoryCache(true)方法跳过内存缓存。</p>
-<h4 id="如何缓存动态Url的图片"><a href="#如何缓存动态Url的图片" class="headerlink" title="如何缓存动态Url的图片"></a>如何缓存动态Url的图片</h4><p>一般情况下我们从网络上获取到的图片Url都是静态的，即一张图片对应一个Url。那么如果是一张图片对应多个Url呢？缓存不就没有意义了。因为图片加载库都是拿图片的Url来作为缓存的key的，Glide也不例外，只是会更加复杂一些。如果你开启了Glide的log,就会在控制台看到Glide是如何指定缓存key的。关于如何打开log,请参考<a href="http://www.jianshu.com/p/9bd6efca8724" target="_blank" rel="noopener">这篇文章</a>。一般来说，Glide的key由图片的url、view的宽和高、屏幕的尺寸大小和signature组成。</p>
-<p>在什么情况下才会出现动态的Url呢？一个很典型的例子就是因为图片的安全问题在原来图片的Url后面加上访问凭证。访问凭证与时间关联，这样一来，在不同时间同一图片的Url就会不同，缓存就会失效。以七牛的私有空间为例，我们来看看如何去缓存这类图片。从七牛关于私有空间的<a href="https://developer.qiniu.com/kodo/manual/download-token" target="_blank" rel="noopener">文档</a>中可以得到：最终的Url = 原Url + ?e=过期时间 + token=下载凭证。那么就只需要在Glide缓存时将Url中“?”后面的字符串截去就可以了。</p>
-<p>首先新建一个叫做QiNiuImage的类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QiNiuImage</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String imageUrl;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">QiNiuImage</span><span class="params">(String imageUrl)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.imageUrl = imageUrl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getImageUrl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> imageUrl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getImageId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (imageUrl.contains(<span class="string">"?"</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> imageUrl.substring(<span class="number">0</span>, imageUrl.lastIndexOf(<span class="string">"?"</span>));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> imageUrl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>其中getImageUrl方法返回真实的Url，getImageId方法返回未添加下载凭证前的Url。<br>然后再自定义一个实现<a href="https://github.com/bumptech/glide/blob/master/library/src/main/java/com/bumptech/glide/load/model/ModelLoader.java" target="_blank" rel="noopener">ModelLoader</a>接口的QiNiuImageLoader:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QiNiuImageLoader</span> <span class="keyword">implements</span> <span class="title">StreamModelLoader</span>&lt;<span class="title">QiNiuImage</span>&gt; </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataFetcher&lt;InputStream&gt; <span class="title">getResourceFetcher</span><span class="params">(<span class="keyword">final</span> QiNiuImage model, <span class="keyword">int</span> width,</span></span></span><br><span class="line"><span class="function"><span class="params">            <span class="keyword">int</span> height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> HttpUrlFetcher(<span class="keyword">new</span> GlideUrl(model.getImageUrl())) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> model.getImageId();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Factory</span> <span class="keyword">implements</span> <span class="title">ModelLoaderFactory</span>&lt;<span class="title">QiNiuImage</span>, <span class="title">InputStream</span>&gt; </span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> ModelLoader&lt;QiNiuImage, InputStream&gt; <span class="title">build</span><span class="params">(Context context,</span></span></span><br><span class="line"><span class="function"><span class="params">                GenericLoaderFactory factories)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> QiNiuImageLoader();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">teardown</span><span class="params">()</span> </span>&#123; <span class="comment">/* no op */</span> &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>其中HttpUrlFetcher的getId方法就是组成缓存的key的重要部分。这也是我们的核心原理。<br>将这个ModelLoader注册到GlideModule中，并在AndroidManifest.xml中注册:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QiNiuModule</span> <span class="keyword">implements</span> <span class="title">GlideModule</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">applyOptions</span><span class="params">(Context context, GlideBuilder builder)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerComponents</span><span class="params">(Context context, Glide glide)</span> </span>&#123;</span><br><span class="line">        glide.register(QiNiuImage.class, InputStream.class, <span class="keyword">new</span> QiNiuImageLoader.Factory());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在有些情况下我们不希望做内存缓存（比如加载 GIF 图片），这个时候可以调用 skipMemoryCache(true)方法跳过内存缓存。</p>
+<h4 id="如何缓存动态-Url-的图片"><a href="#如何缓存动态-Url-的图片" class="headerlink" title="如何缓存动态 Url 的图片"></a>如何缓存动态 Url 的图片</h4><p>一般情况下我们从网络上获取到的图片 Url 都是静态的，即一张图片对应一个 Url。那么如果是一张图片对应多个 Url 呢？缓存不就没有意义了。因为图片加载库都是拿图片的 Url 来作为缓存的 key 的，Glide 也不例外，只是会更加复杂一些。如果你开启了 Glide 的 log,就会在控制台看到 Glide 是如何指定缓存 key 的。关于如何打开 log,请参考<a href="http://www.jianshu.com/p/9bd6efca8724" target="_blank" rel="noopener">这篇文章</a>。一般来说，Glide 的 key 由图片的 url、view 的宽和高、屏幕的尺寸大小和 signature 组成。</p>
+<p>在什么情况下才会出现动态的 Url 呢？一个很典型的例子就是因为图片的安全问题在原来图片的 Url 后面加上访问凭证。访问凭证与时间关联，这样一来，在不同时间同一图片的 Url 就会不同，缓存就会失效。以七牛的私有空间为例，我们来看看如何去缓存这类图片。从七牛关于私有空间的<a href="https://developer.qiniu.com/kodo/manual/download-token" target="_blank" rel="noopener">文档</a>中可以得到：最终的 Url = 原 Url + ?e=过期时间 + token=下载凭证。那么就只需要在 Glide 缓存时将 Url 中“?”后面的字符串截去就可以了。</p>
+<p>首先新建一个叫做 QiNiuImage 的类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QiNiuImage</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String imageUrl;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">QiNiuImage</span><span class="params">(String imageUrl)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.imageUrl = imageUrl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getImageUrl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> imageUrl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getImageId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (imageUrl.contains(<span class="string">"?"</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> imageUrl.substring(<span class="number">0</span>, imageUrl.lastIndexOf(<span class="string">"?"</span>));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> imageUrl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中 getImageUrl 方法返回真实的 Url，getImageId 方法返回未添加下载凭证前的 Url。<br>然后再自定义一个实现<a href="https://github.com/bumptech/glide/blob/master/library/src/main/java/com/bumptech/glide/load/model/ModelLoader.java" target="_blank" rel="noopener">ModelLoader</a>接口的 QiNiuImageLoader:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QiNiuImageLoader</span> <span class="keyword">implements</span> <span class="title">StreamModelLoader</span>&lt;<span class="title">QiNiuImage</span>&gt; </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataFetcher&lt;InputStream&gt; <span class="title">getResourceFetcher</span><span class="params">(<span class="keyword">final</span> QiNiuImage model, <span class="keyword">int</span> width,</span></span></span><br><span class="line"><span class="function"><span class="params">            <span class="keyword">int</span> height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> HttpUrlFetcher(<span class="keyword">new</span> GlideUrl(model.getImageUrl())) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> model.getImageId();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Factory</span> <span class="keyword">implements</span> <span class="title">ModelLoaderFactory</span>&lt;<span class="title">QiNiuImage</span>, <span class="title">InputStream</span>&gt; </span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> ModelLoader&lt;QiNiuImage, InputStream&gt; <span class="title">build</span><span class="params">(Context context,</span></span></span><br><span class="line"><span class="function"><span class="params">                GenericLoaderFactory factories)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> QiNiuImageLoader();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">teardown</span><span class="params">()</span> </span>&#123; <span class="comment">/* no op */</span> &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中 HttpUrlFetcher 的 getId 方法就是组成缓存的 key 的重要部分。这也是我们的核心原理。<br>将这个 ModelLoader 注册到 GlideModule 中，并在 AndroidManifest.xml 中注册:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QiNiuModule</span> <span class="keyword">implements</span> <span class="title">GlideModule</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">applyOptions</span><span class="params">(Context context, GlideBuilder builder)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerComponents</span><span class="params">(Context context, Glide glide)</span> </span>&#123;</span><br><span class="line">        glide.register(QiNiuImage.class, InputStream.class, <span class="keyword">new</span> QiNiuImageLoader.Factory());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta-data</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:name</span>=<span class="string">"com.yourpackagename.QiNiuModule"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:value</span>=<span class="string">"GlideModule"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-<p>最后只需要在加载此类图片时，使用下面这段代码就可以了。即使图片的token更换了也不会重新从网络上下载而是直接读取本地缓存。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Glide.with(context)</span><br><span class="line">      .load(<span class="keyword">new</span> QiNiuImage(imageUrl)</span><br><span class="line">      .into(imageView);</span><br></pre></td></tr></table></figure></p>
+<p>最后只需要在加载此类图片时，使用下面这段代码就可以了。即使图片的 token 更换了也不会重新从网络上下载而是直接读取本地缓存。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Glide.with(context)</span><br><span class="line">      .load(<span class="keyword">new</span> QiNiuImage(imageUrl)</span><br><span class="line">      .into(imageView);</span><br></pre></td></tr></table></figure>
 <p>参考资料：</p>
 <ol>
 <li><a href="https://github.com/bumptech/glide/issues/607" target="_blank" rel="noopener">https://github.com/bumptech/glide/issues/607</a></li>
@@ -238,11 +246,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Glide</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Cache</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Cache</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Glide</a>
         		</li>
       		
 		</ul>
@@ -465,6 +473,30 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Kotlin</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">坑</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SwipeRefreshLayout</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Glide</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">图片加载库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">博客</a>
               </li>
              
@@ -481,23 +513,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">图片加载库</a>
+                <a href="javascript:void(0)" class="js-tag color3">调试</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Glide</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据源</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Retrofit</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">REST</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">HTTP请求</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -509,31 +533,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据源</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">调试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">坑</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SwipeRefreshLayout</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多媒体</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MediaCodec</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">REST</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">HTTP请求</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Image Capture</a>
               </li>
             
             <div class="clearfix"></div>

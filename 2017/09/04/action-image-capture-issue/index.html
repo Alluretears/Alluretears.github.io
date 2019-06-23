@@ -8,19 +8,20 @@
   <link rel="dns-prefetch" href="http://www.imzhiqiang.com">
   <title>使用ACTION_IMAGE_CAPTURE可能存在的风险 | 倾城之泪的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="很多的 Android App 中都有使用相机拍摄用户头像的功能。大部分开发者都会使用MediaStore.ACTION_IMAGE_CAPTURE来满足这一需求。这可以节省很多时间，不需要单独开发相机UI，直接调用系统相机；不需要向系统请求 Camera 权限。正如官方文档里面说的那样，Taking Photos Simply。然而在最近的一次的测试中，我发现并没有那么简单。因为运行了几年的代码">
+  <meta name="description" content="很多的 Android App 中都有使用相机拍摄用户头像的功能。大部分开发者都会使用MediaStore.ACTION_IMAGE_CAPTURE来满足这一需求。这可以节省很多时间，不需要单独开发相机 UI，直接调用系统相机；不需要向系统请求 Camera 权限。正如官方文档里面说的那样，Taking Photos Simply。然而在最近的一次的测试中，我发现并没有那么简单。因为运行了几年的代">
+<meta name="keywords" content="Image Capture">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用ACTION_IMAGE_CAPTURE可能存在的风险">
 <meta property="og:url" content="http://www.imzhiqiang.com/2017/09/04/action-image-capture-issue/index.html">
 <meta property="og:site_name" content="倾城之泪的个人博客">
-<meta property="og:description" content="很多的 Android App 中都有使用相机拍摄用户头像的功能。大部分开发者都会使用MediaStore.ACTION_IMAGE_CAPTURE来满足这一需求。这可以节省很多时间，不需要单独开发相机UI，直接调用系统相机；不需要向系统请求 Camera 权限。正如官方文档里面说的那样，Taking Photos Simply。然而在最近的一次的测试中，我发现并没有那么简单。因为运行了几年的代码">
+<meta property="og:description" content="很多的 Android App 中都有使用相机拍摄用户头像的功能。大部分开发者都会使用MediaStore.ACTION_IMAGE_CAPTURE来满足这一需求。这可以节省很多时间，不需要单独开发相机 UI，直接调用系统相机；不需要向系统请求 Camera 权限。正如官方文档里面说的那样，Taking Photos Simply。然而在最近的一次的测试中，我发现并没有那么简单。因为运行了几年的代">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g425ora0u0j30g309egmv.jpg">
 <meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g425pm6qncj30yg0faq63.jpg">
-<meta property="og:updated_time" content="2019-06-15T13:23:30.780Z">
+<meta property="og:updated_time" content="2019-06-23T09:49:03.544Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用ACTION_IMAGE_CAPTURE可能存在的风险">
-<meta name="twitter:description" content="很多的 Android App 中都有使用相机拍摄用户头像的功能。大部分开发者都会使用MediaStore.ACTION_IMAGE_CAPTURE来满足这一需求。这可以节省很多时间，不需要单独开发相机UI，直接调用系统相机；不需要向系统请求 Camera 权限。正如官方文档里面说的那样，Taking Photos Simply。然而在最近的一次的测试中，我发现并没有那么简单。因为运行了几年的代码">
+<meta name="twitter:description" content="很多的 Android App 中都有使用相机拍摄用户头像的功能。大部分开发者都会使用MediaStore.ACTION_IMAGE_CAPTURE来满足这一需求。这可以节省很多时间，不需要单独开发相机 UI，直接调用系统相机；不需要向系统请求 Camera 权限。正如官方文档里面说的那样，Taking Photos Simply。然而在最近的一次的测试中，我发现并没有那么简单。因为运行了几年的代">
 <meta name="twitter:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g425ora0u0j30g309egmv.jpg">
   
     <link rel="alternative" href="/atom.xml" title="倾城之泪的个人博客" type="application/atom+xml">
@@ -149,7 +150,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-action-image-capture-issue" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="[layout]-action-image-capture-issue" class="article article-type-[layout] " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -169,7 +170,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>很多的 Android App 中都有使用相机拍摄用户头像的功能。大部分开发者都会使用<code>MediaStore.ACTION_IMAGE_CAPTURE</code>来满足这一需求。这可以节省很多时间，不需要单独开发相机UI，直接调用系统相机；不需要向系统请求 Camera 权限。正如官方文档里面说的那样，<a href="https://developer.android.com/training/camera/photobasics.html#TaskCaptureIntent" target="_blank" rel="noopener">Taking Photos Simply</a>。然而在最近的一次的测试中，我发现并没有那么简单。因为运行了几年的代码竟然发生了 Crash。具体的 log 如下：</p>
+        <p>很多的 Android App 中都有使用相机拍摄用户头像的功能。大部分开发者都会使用<code>MediaStore.ACTION_IMAGE_CAPTURE</code>来满足这一需求。这可以节省很多时间，不需要单独开发相机 UI，直接调用系统相机；不需要向系统请求 Camera 权限。正如官方文档里面说的那样，<a href="https://developer.android.com/training/camera/photobasics.html#TaskCaptureIntent" target="_blank" rel="noopener">Taking Photos Simply</a>。然而在最近的一次的测试中，我发现并没有那么简单。因为运行了几年的代码竟然发生了 Crash。具体的 log 如下：</p>
 <blockquote>
 <p>java.lang.SecurityException: Permission Denial: starting Intent { act=android.media.action.IMAGE_CAPTURE cat=[android.intent.category.DEFAULT] flg=0x3 cmp=com.google.android.GoogleCamera/com.android.camera.activity.CaptureActivity clip={text/uri-list U:content://com.imzhiqiang.example.fileprovider/imageCache/tmp_avatar.jpg} (has extras) } from ProcessRecord{bf70afd 18107:com.imzhiqiang.example/u0a108} (pid=18107, uid=10108) with revoked permission android.permission.CAMERA</p>
 </blockquote>
@@ -219,6 +220,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Image Capture</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -282,6 +294,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2019/06/23/31DaysOfKotlin/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          31DaysOfKotlin
+        
+      </div>
+    </a>
   
   
     <a href="/2017/03/05/Cache-in-Glide/" id="article-nav-older" class="article-nav-link-wrap">
@@ -427,6 +448,30 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Kotlin</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">坑</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SwipeRefreshLayout</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Glide</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">图片加载库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">博客</a>
               </li>
              
@@ -443,23 +488,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">图片加载库</a>
+                <a href="javascript:void(0)" class="js-tag color3">调试</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Glide</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据源</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Retrofit</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">REST</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">HTTP请求</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -471,31 +508,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据源</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">调试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">坑</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SwipeRefreshLayout</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多媒体</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MediaCodec</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">REST</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">HTTP请求</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Image Capture</a>
               </li>
             
             <div class="clearfix"></div>

@@ -6,22 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.imzhiqiang.com">
-  <title>如何调试Glide加载图片 | 倾城之泪的个人博客</title>
+  <title>使用Glide加载图片系列之零初识Glide | 倾城之泪的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言与其他图片加载库不同，在Glide加载图片的过程中默认是没有任何log输出的。这样使得加载失败的原因难以调试。到底是网络错误还是图片根本就不存在亦或者解码出错，我们不得而知。当然官方也给出了调试的方法，这篇文章就来介绍下如何调试Glide加载图片，内容主要是对官方wiki的翻译。">
-<meta name="keywords" content="Glide,调试">
+  <meta name="description" content="废话不多说，开撸（Junk Words No More Say,Let’s LOL） 咋添加 Glide 依赖呀？一句话（One Word）： 1compile &amp;apos;com.github.bumptech.glide:glide:3.6.1&amp;apos; 不多说(No More Say)。 PhotoShop:如果你还在用一颗利普斯(eclipse)，请前往 Glide 在 github 上">
+<meta name="keywords" content="Glide,图片加载库">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何调试Glide加载图片">
-<meta property="og:url" content="http://www.imzhiqiang.com/2015/12/01/2016-01-13-How-to-debug-glide/index.html">
+<meta property="og:title" content="使用Glide加载图片系列之零初识Glide">
+<meta property="og:url" content="http://www.imzhiqiang.com/2015/10/27/Hello-Glide/index.html">
 <meta property="og:site_name" content="倾城之泪的个人博客">
-<meta property="og:description" content="前言与其他图片加载库不同，在Glide加载图片的过程中默认是没有任何log输出的。这样使得加载失败的原因难以调试。到底是网络错误还是图片根本就不存在亦或者解码出错，我们不得而知。当然官方也给出了调试的方法，这篇文章就来介绍下如何调试Glide加载图片，内容主要是对官方wiki的翻译。">
+<meta property="og:description" content="废话不多说，开撸（Junk Words No More Say,Let’s LOL） 咋添加 Glide 依赖呀？一句话（One Word）： 1compile &amp;apos;com.github.bumptech.glide:glide:3.6.1&amp;apos; 不多说(No More Say)。 PhotoShop:如果你还在用一颗利普斯(eclipse)，请前往 Glide 在 github 上">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g425no4x5lj30yg0bcq6d.jpg">
-<meta property="og:updated_time" content="2019-06-15T13:21:18.022Z">
+<meta property="og:updated_time" content="2019-06-23T09:47:30.605Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何调试Glide加载图片">
-<meta name="twitter:description" content="前言与其他图片加载库不同，在Glide加载图片的过程中默认是没有任何log输出的。这样使得加载失败的原因难以调试。到底是网络错误还是图片根本就不存在亦或者解码出错，我们不得而知。当然官方也给出了调试的方法，这篇文章就来介绍下如何调试Glide加载图片，内容主要是对官方wiki的翻译。">
-<meta name="twitter:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g425no4x5lj30yg0bcq6d.jpg">
+<meta name="twitter:title" content="使用Glide加载图片系列之零初识Glide">
+<meta name="twitter:description" content="废话不多说，开撸（Junk Words No More Say,Let’s LOL） 咋添加 Glide 依赖呀？一句话（One Word）： 1compile &amp;apos;com.github.bumptech.glide:glide:3.6.1&amp;apos; 不多说(No More Say)。 PhotoShop:如果你还在用一颗利普斯(eclipse)，请前往 Glide 在 github 上">
   
     <link rel="alternative" href="/atom.xml" title="倾城之泪的个人博客" type="application/atom+xml">
   
@@ -149,41 +147,36 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="[layout]-2016-01-13-How-to-debug-glide" class="article article-type-[layout] " itemscope itemprop="blogPost">
+            <article id="[layout]-Hello-Glide" class="article article-type-[layout] " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      如何调试Glide加载图片
+      使用Glide加载图片系列之零初识Glide
     </h1>
   
 
         
-        <a href="/2015/12/01/2016-01-13-How-to-debug-glide/" class="archive-article-date">
-  	<time datetime="2015-12-01T07:23:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-12-01</time>
+        <a href="/2015/10/27/Hello-Glide/" class="archive-article-date">
+  	<time datetime="2015-10-27T14:04:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-10-27</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>与其他图片加载库不同，在Glide加载图片的过程中默认是没有任何log输出的。这样使得加载失败的原因难以调试。到底是网络错误还是图片根本就不存在亦或者解码出错，我们不得而知。当然官方也给出了调试的方法，这篇文章就来介绍下如何调试Glide加载图片，内容主要是对官方wiki的翻译。</p>
-<a id="more"></a>
-<h4 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h4><p>在Glide加载图片过程中出现异常时，默认是没有log输出的。但是Glide给开发者提供了两种方法来查看或者响应这些异常。</p>
-<h5 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h5><p>为了在异常发生时可以看到它们，你可以打开Glide中处理所有媒体加载响应的类GenericRequest的log开关。很简单，在命令行运行下面的指令即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell setprop log.tag.GenericRequest DEBUG</span><br></pre></td></tr></table></figure></p>
-<p>如果你将DEBUG替换为VERBOSE，还可以看到详细的请求时间日志。</p>
-<p>如果你想禁用log输出，执行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell setprop log.tag.GenericRequest ERROR</span><br></pre></td></tr></table></figure></p>
-<h5 id="调试工作流"><a href="#调试工作流" class="headerlink" title="调试工作流"></a>调试工作流</h5><p><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g425no4x5lj30yg0bcq6d.jpg" alt="Glide workflow.png"></p>
-<p>为了查看Glide内部引擎是何时、如何加载图片的，你可以启用这些log:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">adb shell setprop log.tag.Engine VERBOSE</span><br><span class="line">adb shell setprop log.tag.EngineJob VERBOSE</span><br><span class="line">adb shell setprop log.tag.DecodeJob VERBOSE</span><br></pre></td></tr></table></figure></p>
-<p>启用这些log可以帮助你了解到为什么某些资源没有从内存中加载？为什么从外部url加载要重新下载数据？同时这也有助于了解在磁盘缓存时哪些参数需要配置。启用DecodeJob log还可以帮助你了解自定义变换/解码器/编码器等相关问题。</p>
-<h5 id="请求监听器"><a href="#请求监听器" class="headerlink" title="请求监听器"></a>请求监听器</h5><p>虽然启动调试日志很简单，但前提是你可以访问到设备。为了完善Glide已存在或更复杂的错误日志系统，你可以使用RequestListener类。当加载请求失败时onException()方法就会被调用，并给出造成失败的异常或者null(在解码器无法从它获取到的数据中解码出任何有用的东西时)。你可以通过listener() API为每一个请求添加一个监听器。</p>
-<p>确保onException()方法的返回值为false，避免覆盖Glide默认的错误处理（比如加载失败的错误图片占位）。</p>
-<p>这里有一个实现快速调试的列子:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例: .listener(new LoggingListener&lt;String, GlideDrawable&gt;())</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoggingListener</span>&lt;<span class="title">T</span>, <span class="title">R</span>&gt; <span class="keyword">implements</span> <span class="title">RequestListener</span>&lt;<span class="title">T</span>, <span class="title">R</span>&gt; </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onException</span><span class="params">(Exception e, Object model, Target target, <span class="keyword">boolean</span> isFirstResource)</span> </span>&#123;</span><br><span class="line">        android.util.Log.d(<span class="string">"GLIDE"</span>, String.format(Locale.ROOT,</span><br><span class="line">                <span class="string">"onException(%s, %s, %s, %s)"</span>, e, model, target, isFirstResource), e);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onResourceReady</span><span class="params">(Object resource, Object model, Target target, <span class="keyword">boolean</span> isFromMemoryCache, <span class="keyword">boolean</span> isFirstResource)</span> </span>&#123;</span><br><span class="line">        android.util.Log.d(<span class="string">"GLIDE"</span>, String.format(Locale.ROOT,</span><br><span class="line">                <span class="string">"onResourceReady(%s, %s, %s, %s, %s)"</span>, resource, model, target, isFromMemoryCache, isFirstResource));</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>确保在发布应用时移除掉所有的调试log!</strong></p>
-<h5 id="更多的log指令"><a href="#更多的log指令" class="headerlink" title="更多的log指令"></a>更多的log指令</h5><p>这个列表是基于Glide 3.6.0版本的，并不完整。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">cd .../android-sdk/platform-tools</span><br><span class="line">adb shell setprop log.tag.AnimatedGifEncoder VERBOSE</span><br><span class="line">adb shell setprop log.tag.AssetUriFetcher VERBOSE</span><br><span class="line">adb shell setprop log.tag.BitmapEncoder VERBOSE</span><br><span class="line">adb shell setprop log.tag.BufferedIs VERBOSE</span><br><span class="line">adb shell setprop log.tag.ByteArrayPool VERBOSE</span><br><span class="line">adb shell setprop log.tag.CacheLoader VERBOSE</span><br><span class="line">adb shell setprop log.tag.ContentLengthStream VERBOSE</span><br><span class="line">adb shell setprop log.tag.DecodeJob VERBOSE</span><br><span class="line">adb shell setprop log.tag.DiskLruCacheWrapper VERBOSE</span><br><span class="line">adb shell setprop log.tag.Downsampler VERBOSE</span><br><span class="line">adb shell setprop log.tag.Engine VERBOSE</span><br><span class="line">adb shell setprop log.tag.EngineRunnable VERBOSE</span><br><span class="line">adb shell setprop log.tag.GenericRequest VERBOSE</span><br><span class="line">adb shell setprop log.tag.GifDecoder VERBOSE</span><br><span class="line">adb shell setprop log.tag.GifEncoder VERBOSE</span><br><span class="line">adb shell setprop log.tag.GifHeaderParser VERBOSE</span><br><span class="line">adb shell setprop log.tag.GifResourceDecoder VERBOSE</span><br><span class="line">adb shell setprop log.tag.Glide VERBOSE</span><br><span class="line">adb shell setprop log.tag.ImageHeaderParser VERBOSE</span><br><span class="line">adb shell setprop log.tag.ImageVideoDecoder VERBOSE</span><br><span class="line">adb shell setprop log.tag.IVML VERBOSE</span><br><span class="line">adb shell setprop log.tag.LocalUriFetcher VERBOSE</span><br><span class="line">adb shell setprop log.tag.LruBitmapPool VERBOSE</span><br><span class="line">adb shell setprop log.tag.MediaStoreThumbFetcher VERBOSE</span><br><span class="line">adb shell setprop log.tag.MemorySizeCalculator VERBOSE</span><br><span class="line">adb shell setprop log.tag.PreFillRunner VERBOSE</span><br><span class="line">adb shell setprop log.tag.ResourceLoader VERBOSE</span><br><span class="line">adb shell setprop log.tag.RMRetriever VERBOSE</span><br><span class="line">adb shell setprop log.tag.StreamEncoder VERBOSE</span><br><span class="line">adb shell setprop log.tag.TransformationUtils VERBOSE</span><br></pre></td></tr></table></figure>
+        <p>废话不多说，开撸（Junk Words No More Say,Let’s LOL）</p>
+<h4 id="咋添加-Glide-依赖呀？"><a href="#咋添加-Glide-依赖呀？" class="headerlink" title="咋添加 Glide 依赖呀？"></a>咋添加 Glide 依赖呀？</h4><p>一句话（One Word）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile &apos;com.github.bumptech.glide:glide:3.6.1&apos;</span><br></pre></td></tr></table></figure>
+<p>不多说(No More Say)。</p>
+<p>PhotoShop:如果你还在用一颗利普斯(eclipse)，请前往 Glide 在 github 上的发布页，下载最新的 jar 包吧，地址是 sha？自己找 →_→</p>
+<h4 id="最简单的加载方式"><a href="#最简单的加载方式" class="headerlink" title="最简单的加载方式"></a>最简单的加载方式</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ImageView targetImageView = (ImageView) findViewById(R.id.imageView);</span><br><span class="line">String internetUrl = <span class="string">"http://i.imgur.com/idojSYm.png"</span>;</span><br><span class="line">Glide</span><br><span class="line">	.with(context)</span><br><span class="line">    .load(internetUrl)</span><br><span class="line">    .into(targetImageView);</span><br></pre></td></tr></table></figure>
+<p>这都嘛意思啊？莫慌，我来装下 B:</p>
+<p>.with(Context context),此处的 context 就是你熟悉的 context，没啥不一样的。就是有一点，里面可以是 fragment。</p>
+<p>.load(String imageUrl),你要加载的图片地址，当然也可以是 uri 或者 file,亦或是 R.drawable.xxxx。</p>
+<p>.into(ImageView targetImageView)，你要加载的 Imageview 控件，当然也可以一个 view,不过那都是后话。</p>
 
       
 
@@ -222,7 +215,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">调试</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">图片加载库</a>
         		</li>
       		
 		</ul>
@@ -278,7 +271,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://www.imzhiqiang.com/2015/12/01/2016-01-13-How-to-debug-glide/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://www.imzhiqiang.com/2015/10/27/Hello-Glide/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -292,18 +285,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2016/09/24/Several-important-classes-in-Android-media-framework/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/10/27/Load-images-from-difference-data-sources/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Android多媒体框架中几个重要的类
+          使用Glide加载图片系列之一从不同的数据源加载图片
         
       </div>
     </a>
   
   
-    <a href="/2015/11/19/2016-01-13-An-accident-about-SwipeRefreshLayout-in-support-v4-package/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">记录一次v4包中SwipeRefreshLayout的“坑爹”事件</div>
+    <a href="/2015/08/23/Some-tips-with-Glide/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Glide ：一个专注于平滑滚动的图片加载和缓存库</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -445,6 +438,30 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Kotlin</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">坑</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SwipeRefreshLayout</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Glide</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">图片加载库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">博客</a>
               </li>
              
@@ -461,23 +478,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">图片加载库</a>
+                <a href="javascript:void(0)" class="js-tag color3">调试</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Glide</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据源</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Retrofit</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">REST</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">HTTP请求</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -489,31 +498,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据源</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">调试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">坑</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SwipeRefreshLayout</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多媒体</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MediaCodec</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">REST</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">HTTP请求</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Image Capture</a>
               </li>
             
             <div class="clearfix"></div>

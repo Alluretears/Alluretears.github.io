@@ -6,18 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.imzhiqiang.com">
-  <title>Archives | 倾城之泪的个人博客</title>
+  <title>记录一次v4包中SwipeRefreshLayout的“坑爹”事件 | 倾城之泪的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="既然琴瑟起，何以笙箫默">
-<meta property="og:type" content="website">
-<meta property="og:title" content="倾城之泪的个人博客">
-<meta property="og:url" content="http://www.imzhiqiang.com/archives/page/2/index.html">
+  <meta name="description" content="当 android support v4 包和 v7 包版本不一样时，v4 包中的 SwipeRefreshLayout 和 v7 包中的 RecyclerView 不能很好地一起工作，会导致 SwipeRefreshLayout 下拉刷新时动画卡住的情况，类似下面的情况：  详情请参考: http://stackoverflow.com/questions/33032036/swiperefre">
+<meta name="keywords" content="坑,SwipeRefreshLayout">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记录一次v4包中SwipeRefreshLayout的“坑爹”事件">
+<meta property="og:url" content="http://www.imzhiqiang.com/2015/11/19/An-accident-about-SwipeRefreshLayout-in-support-v4-package/index.html">
 <meta property="og:site_name" content="倾城之泪的个人博客">
-<meta property="og:description" content="既然琴瑟起，何以笙箫默">
+<meta property="og:description" content="当 android support v4 包和 v7 包版本不一样时，v4 包中的 SwipeRefreshLayout 和 v7 包中的 RecyclerView 不能很好地一起工作，会导致 SwipeRefreshLayout 下拉刷新时动画卡住的情况，类似下面的情况：  详情请参考: http://stackoverflow.com/questions/33032036/swiperefre">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g425li2eiwg30dc0a0u0x.gif">
+<meta property="og:updated_time" content="2019-06-23T09:48:51.919Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="倾城之泪的个人博客">
-<meta name="twitter:description" content="既然琴瑟起，何以笙箫默">
+<meta name="twitter:title" content="记录一次v4包中SwipeRefreshLayout的“坑爹”事件">
+<meta name="twitter:description" content="当 android support v4 包和 v7 包版本不一样时，v4 包中的 SwipeRefreshLayout 和 v7 包中的 RecyclerView 不能很好地一起工作，会导致 SwipeRefreshLayout 下拉刷新时动画卡住的情况，类似下面的情况：  详情请参考: http://stackoverflow.com/questions/33032036/swiperefre">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g425li2eiwg30dc0a0u0x.gif">
   
     <link rel="alternative" href="/atom.xml" title="倾城之泪的个人博客" type="application/atom+xml">
   
@@ -145,121 +149,206 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="[layout]-An-accident-about-SwipeRefreshLayout-in-support-v4-package" class="article article-type-[layout] " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-[layout]">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/07/09/Retrofit-Getting-Started-and-Create-an-Android-Client/" class="archive-article-date">
-  	<time datetime="2015-07-09T15:07:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-07-09</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/07/09/Retrofit-Getting-Started-and-Create-an-Android-Client/">Retrofit系列之一：开始创建Retrofit客户端（译）</a>
+    <h1 class="article-title" itemprop="name">
+      记录一次v4包中SwipeRefreshLayout的“坑爹”事件
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2015/11/19/An-accident-about-SwipeRefreshLayout-in-support-v4-package/" class="archive-article-date">
+  	<time datetime="2015-11-19T05:29:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-11-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当 android support v4 包和 v7 包版本不一样时，v4 包中的 SwipeRefreshLayout 和 v7 包中的 RecyclerView 不能很好地一起工作，会导致 SwipeRefreshLayout 下拉刷新时动画卡住的情况，类似下面的情况：</p>
+<p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g425li2eiwg30dc0a0u0x.gif" alt="sample"></p>
+<p>详情请参考:</p>
+<p><a href="http://stackoverflow.com/questions/33032036/swiperefreshlayout-freezes-on-api-4-2-2。" target="_blank" rel="noopener">http://stackoverflow.com/questions/33032036/swiperefreshlayout-freezes-on-api-4-2-2。</a></p>
+<a id="more"></a>
+<p>如果你的项目中用到了<a href="https://github.com/chrisbanes/PhotoView" target="_blank" rel="noopener">photoview</a>，并且 targetSdk 还是 22 的话，请不要使用默认的 Gradle 引用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile &apos;com.commit451:PhotoView:1.2.4&apos;</span><br></pre></td></tr></table></figure>
+<p>因为这个版本的 photoview 默认依赖了 support v4 23.0.1 版本，使得 23.0.1 版本中的 SwipeRefreshLayout 和 22 版本中的 RecyclerView 不能很好地协调工作。</p>
+<p>可以使用下面的引用来引入 photoview:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile &apos;com.github.chrisbanes.photoview:library:1.2.4&apos;</span><br></pre></td></tr></table></figure>
+<p>如果不是特意去查看，你还很难发现这个细节，因为 targetSdk 为 22 的情况下是不会引用 23.0.1 版本的 v4 包的，除非你项目中有其他的 library 引用了。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>在引入官方 support 库时，务必保证版本一致；在引入第三方库时，务必查看第三方库的依赖库，免坑。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Retrofit</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">坑</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">REST</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">HTTP请求</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SwipeRefreshLayout</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://www.imzhiqiang.com/2015/11/19/An-accident-about-SwipeRefreshLayout-in-support-v4-package/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-[layout]">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/06/20/HelloWorld/" class="archive-article-date">
-  	<time datetime="2015-06-20T09:45:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-06-20</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2015/12/01/How-to-debug-glide/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          如何调试Glide加载图片
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/10/27/Load-images-from-difference-data-sources/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">使用Glide加载图片系列之一从不同的数据源加载图片</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/06/20/HelloWorld/">HelloWorld</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">博客</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">处女篇</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-    </nav>
+  
+    <section id="comments">
+      <div id="disqus_thread"></div>
+        <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'zhiqiang'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </section>
+  
+
   
 
 
@@ -283,8 +372,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
